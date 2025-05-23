@@ -147,7 +147,7 @@ async function renderUniver() {
   univerRef.value = univer
   univerAPIRef.value = univerAPI
   activeWorkbook.value = univerAPIRef.value.getActiveWorkbook()
-  setSheetsPermissions()
+  // setSheetsPermissions()
   await nextTick()
   setSheetsEditPermission(true)
 }
