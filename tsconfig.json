@@ -1,24 +1,15 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.web.json",
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
-  "exclude": ["dist", "node_modules"],
+  "files": [],
   "compilerOptions": {
-    "baseUrl": "./",
-    "lib": ["esnext", "dom"],
-    "module": "esnext",
-    "paths": {
-      "@/*": ["src/*"]
-    },
-    "strictNullChecks": false,
-    "noImplicitAny": false,
-    "allowJs": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
-
   "references": [
     {
       "path": "./tsconfig.node.json"
+    },
+    {
+      "path": "./tsconfig.app.json"
     }
   ]
 }

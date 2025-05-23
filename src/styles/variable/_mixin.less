@@ -1,0 +1,25 @@
+.default(@everyChild: false) {
+  font-size: 16px;
+  line-height: 24px;
+  color: @text-primary;
+  box-sizing: border-box;
+  outline: none;
+  font-family: 'Microsoft JhengHei';
+  font-style: normal;
+  margin: 0;
+  padding: 0;
+  * {
+    box-sizing: border-box;
+    outline: none;
+    color: @text-primary;
+    font-family: 'Microsoft JhengHei';
+    font-style: normal;
+  }
+  .child-default(@everyChild) when (@everyChild) {
+    * {
+      font-size: 16px;
+      line-height: 24px;
+    }
+  }
+  .child-default(@everyChild);
+}

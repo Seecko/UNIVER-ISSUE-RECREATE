@@ -1,11 +1,16 @@
-declare interface Fn<T = any> {
-  (...arg: T[]): T
+declare type Recordable<T = any, K = string> = Record<K extends null | undefined ? string : K, T>
+declare type AxiosConfig = {
+  params?: any
+  data?: any
+  url?: string
+  method?: AxiosMethod
+  headersType?: string
+  responseType?: AxiosResponseType
+  headers?: object
 }
 
-declare type Nullable<T> = T | null
+declare const $wujie: any
 
-declare type Recordable<T = any, K = string> = Record<K extends null | undefined ? string : K, T>
-
-declare type ComponentRef<T> = InstanceType<T>
-
-declare module 'vue3-eventbus'
+interface Window {
+  $wujie: any
+}
