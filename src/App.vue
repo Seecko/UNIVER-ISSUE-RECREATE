@@ -1,9 +1,9 @@
 <template>
   <ElConfigProvider :namespace="'el'" :locale="elLocale">
-    <div class="APP" :class="{ 'WUJIE-APP': isWujie }">
-      <common-header v-if="!isWujie" />
+    <div class="APP">
+      <common-header />
       <div class="BODY">
-        <common-sidebar v-if="!isWujie" />
+        <common-sidebar />
         <div class="WRAPPER">
           <RouterView v-if="showPage" />
         </div>
@@ -21,7 +21,6 @@ import en from 'element-plus/es/locale/lang/en'
 
 import { useCommonStoreOutside } from '@/store'
 import { useTheme } from '@/hook/theme/useTheme'
-import { themes } from '@/hook/theme/theme-data'
 import { i18n } from '@/assets/script/setup'
 import type { CommonConfig, CurLocale } from '@/types'
 
@@ -33,43 +32,11 @@ const commonStore = useCommonStoreOutside()
 const { initTheme, applyTheme } = useTheme()
 
 onMounted(async () => {
-  isWujie.value = !!window?.$wujie
-  // 初始化多语言、orgId和主题化参数
-  if (window?.$wujie?.props) {
-    pageConfig.locale = window?.$wujie?.props.lang
-    pageConfig.orgId = window?.$wujie?.props.orgId
-    pageConfig.theme = window?.$wujie?.props.theme === '#fff' ? 'light' : 'dark'
-  }
   initTheme(pageConfig.theme)
   // 多语言和org存到仓库
   commonStore.setConfig(unref(pageConfig))
-  // userInfo存到仓库
-  let userResponse = JSON.parse(localStorage.getItem('orgNum') || '{}')
-  if (import.meta.env.VITE_HOST_PORT && !userResponse.data) {
-    // TODO: 本地测试代码
-    userResponse = {
-      data: {
-        id: 3,
-        email: 'admin@advantech.com.cn',
-        userName: 'admin@advantech.com.cn',
-        firstName: 'asda',
-        lastName: ''
-      },
-      status: 200
-    }
-  }
-  if (userResponse.status === 200 && userResponse.data) {
-    commonStore.setUserInfo(userResponse.data)
-  }
   // 多语言
   await changeLocale(pageConfig.locale)
-  // 主题化切换
-  window?.$wujie?.bus?.$on('iemsTheme', (val: any) => {
-    pageConfig.theme = val === '#fff' ? 'light' : 'dark'
-    commonStore.setTheme(pageConfig.theme)
-    const themeName = `${import.meta.env.VITE_SRP_NAME}-${pageConfig.theme}-theme`
-    applyTheme(themes[themeName])
-  })
 
   nextTick(() => {
     showPage.value = true
@@ -82,7 +49,6 @@ const elLocaleMap = {
   en: en
 }
 
-const isWujie = ref(false)
 const showPage = ref(false)
 
 const pageConfig = reactive<CommonConfig>({
@@ -114,29 +80,17 @@ const changeLocale = async (locale: CurLocale) => {
   .default();
   width: 100%;
   height: 100%;
-  &:not(.WUJIE-APP) {
-    background-color: @bg-subtler-0_neutral-normal;
-    .BODY {
-      margin-top: 8px;
-      height: calc(100% - 68px);
-      display: flex;
-      align-items: center;
-      .WRAPPER {
-        margin-left: 8px;
-        flex: 1;
-        height: 100%;
-        background-color: @bg-subtlest-0_neutral-normal;
-      }
-    }
-  }
-  &.WUJIE-APP {
-    padding-top: 8px;
-    padding-left: 8px;
-    .BODY {
+  background-color: @bg-subtler-0_neutral-normal;
+  .BODY {
+    margin-top: 8px;
+    height: calc(100% - 68px);
+    display: flex;
+    align-items: center;
+    .WRAPPER {
+      margin-left: 8px;
+      flex: 1;
       height: 100%;
-      .WRAPPER {
-        height: 100%;
-      }
+      background-color: @bg-subtlest-0_neutral-normal;
     }
   }
 }
