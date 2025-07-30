@@ -11,8 +11,8 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "@univerjs/core": "0.7.0",
-    "@univerjs/presets": "0.7.0",
+    "@univerjs/core": "0.9.4",
+    "@univerjs/presets": "0.9.4",
     "axios": "^1.8.4",
     "element-plus": "2.2.6",
     "lodash-es": "^4.17.21",
