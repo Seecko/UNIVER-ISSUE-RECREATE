@@ -74,7 +74,7 @@ const univerRef = ref<Univer | null>(null)
 const univerAPIRef = ref<FUniver | null>(null)
 const activeWorkbook = ref<FWorkbook | null>(null)
 async function renderUniver() {
-  disposeAll()
+  // disposeAll()
   const { univer, univerAPI } = createUniver({
     locale: LocaleType.ZH_CN,
     locales: {
